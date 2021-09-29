@@ -228,7 +228,7 @@ public class BinarySearchTree {
 		System.out.print(node.data + " ");
 		inorder(node.right);
 	}
-	
+	//
 	public void display() {
 		inorder(root);
 	}
