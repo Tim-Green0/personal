@@ -39,14 +39,14 @@ public class BinarySearchTree {
 			return;
 		}
 		
-		if (data <= root.data) { // 왼쪽 탐색
+		if (data < node.data) { // 왼쪽 탐색
 			if (node.left == null) {
 				Node newNode = createNewNode(data);
 				node.left = newNode;
 				return;
 			}
 			insert(node.left, data);
-		} else { // 오른쪽 탐색
+		} else if (data > node.data) { // 오른쪽 탐색
 			if (node.right == null) {
 				Node newNode = createNewNode(data);
 				node.right = newNode;
@@ -108,39 +108,29 @@ public class BinarySearchTree {
 		} else if (data > node.data) {
 			delete(node.right, node, data);
 		} else {
-			if (node.left == null && node.right == null) {
+			if (node.left == null && node.right == null) { // 아무것도 없을때
 				if (data <= parent.data) {
 					parent.left = null;
 				} else {
 					parent.right = null;
 				}
-			} else if (node.left != null && node.right == null) {
+			} else if (node.left != null && node.right == null) { // 왼쪽만 있을때
 				if (data <= parent.data) { /* 한단계 위의 노드와 쇼부보는거 -> 위의 노드의 데이터 보다 찾는 데이터가 작으면 -> 위의 노드의 왼쪽에 위치함 */
 					parent.left = node.left;
 				} else {
 					parent.right = node.left;
 				}
-			} else if (node.left == null && node.right != null) {
+			} else if (node.left == null && node.right != null) { // 오른쪽만 있을때
 				if (data <= parent.data) { /* 한단계 위의 노드와 쇼부보는거 -> 위의 노드의 데이터 보다 찾는 데이터가 크면 -> 위의 노드의 오른쪽에 위치함 */
 					parent.left = node.right;
 				} else {
 					parent.right = node.right;
 				}
-			} else {
+			} else { // 2개가 있을때
 				int max = max(node.left);
 				delete(node.left, node, max);
+				System.out.println(max);
 				node.data = max;
-				
-				
-//				if (flag == 'l') {
-//					Node rightNode = node.right;
-//					rightNode.left = node.left;
-//					parent.left = rightNode;
-//				} else {
-//					Node leftNode = node.left;
-//					leftNode.right = node.right;
-//					parent.right = leftNode;
-//				}
 				
 			}
 		}	
@@ -220,8 +210,8 @@ public class BinarySearchTree {
 		inorder(root);
 		System.out.println();
 	}
-	//
-	public void inorder(Node node) {
+	
+	private void inorder(Node node) {
 		if (node == null) {
 			return;
 		}
@@ -229,8 +219,50 @@ public class BinarySearchTree {
 		System.out.print(node.data + " ");
 		inorder(node.right);
 	}
-	//
-	//
+	
+	public void mirror() {
+//		mirror(root.left);
+//		mirror(root.right);
+		
+		mirror(root);
+		System.out.println("Mirror Successful!!");
+		System.out.println("Tree after mirror is: ");
+		display();
+		System.out.println();
+	}
+	
+	private void mirror(Node node) {
+		if (node == null) {
+			return;
+		}
+		
+		if (node.left != null && node.right == null) {
+			if (node.left.left == null) {
+				node.right = node.left;
+				node.left = null;
+				return;
+			}
+			mirror(node.left);
+		} else if (node.left == null && node.right != null) {
+			if (node.right.right == null) {
+				node.left = node.right;
+				node.right = null;
+				return;
+			}
+			mirror(node.right);
+		} else if (node.left != null && node.right != null){
+			mirror(node.left);
+			mirror(node.right);
+			
+			Node temp = node.right;
+			node.right = node.left;
+			node.left = temp;
+			return;
+		} else if (node.left == null && node.right == null) {
+			return;
+		}
+	}
+	
 	public void display() {
 		inorder(root);
 	}
