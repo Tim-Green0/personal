@@ -15,6 +15,7 @@ public class BinarySearchTree {
 		newNode.left = null;
 		newNode.right = null;
 		return newNode;
+		//change 
 	}
 	
 	public void insert(int data) {
