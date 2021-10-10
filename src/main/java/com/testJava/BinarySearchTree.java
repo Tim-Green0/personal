@@ -252,7 +252,7 @@ public class BinarySearchTree {
 			mirror(node.right);
 		} else if (node.left != null && node.right != null){
 			mirror(node.left);
-			mirror(node.right);
+			mirror(node.right); 
 			
 			Node temp = node.right;
 			node.right = node.left;
