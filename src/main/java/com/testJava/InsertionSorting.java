@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class InsertionSorting {
 	public static void main(String[] args) {
-		int[] array = {5, 8, 6, 2, 4};
+		int[] array = {5, 8, 6, 2, 4, 10, 19, 20};
 		
 		for (int i = 1; i < array.length; i++) {  
 			int target = array[i];
@@ -19,6 +19,26 @@ public class InsertionSorting {
 		}
 		
 		System.out.println(Arrays.toString(array));
+	}
+	
+	public static void insertSorting(int[] arri) {
+		if (arri.length <= 1) {
+			return;
+		}
+		
+		for (int i = 1; i < arri.length; i++) {
+			for (int j = i; j - 1 >= 0; j--) {
+				if (arri[j - 1] > arri[j]) {
+					swap(arri, j - 1, j);
+				}
+			}
+		}
+	}
+	
+	public static void swap(int[] arri, int start, int end) {
+		int temp = arri[end];
+		arri[end] = arri[start];
+		arri[start] = temp;
 	}
 }
  

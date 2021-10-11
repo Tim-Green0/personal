@@ -16,7 +16,7 @@ public class DFSGraph {
 	public void addEdge(int v, int nv) {
 		matrix[v][nv] = true;
 	}
-	
+	 
 	public void dfs(int start) {
 		SStack stack = new SStack(10);
 		stack.push(start);
